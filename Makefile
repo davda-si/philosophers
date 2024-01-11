@@ -6,7 +6,7 @@
 #    By: david <david@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 19:49:44 by david             #+#    #+#              #
-#    Updated: 2024/01/10 20:18:20 by david            ###   ########.fr        #
+#    Updated: 2024/01/11 17:00:48 by david            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src
 SRC = $(SRC_DIR)/main.c
 
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 
 
 LIBFT_PATH = ./libs/libft
