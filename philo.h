@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/10 19:52:21 by david            ###   ########.fr       */
+/*   Updated: 2024/01/12 19:37:57 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <sys/time.h>
-# include "libs/libft/libft.h"
+
+int		main(int ac, char **av);
+long	ft_atol(const char *s);
+int		ft_invalid(char *str);
+int		pars(char **av);
 
 #endif

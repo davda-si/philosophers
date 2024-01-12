@@ -6,37 +6,24 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/01/11 19:37:54 by david            ###   ########.fr       */
+/*   Updated: 2024/01/12 19:40:56 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	*ft_test(void *add);
-
-int	main()
+int	main(int ac, char **av)
 {
-	pthread_t	thread;
-	pthread_t	thread2;
-	long		i;
-	long		j;
-
-	i = 15;
-	j = 20;
-	pthread_create(&thread, NULL, ft_test, (void *)&i);
-	pthread_create(&thread2, NULL, ft_test, (void *)&j);
-	pthread_join(thread, NULL);
-	pthread_join(thread2, NULL);
+	if (ac != 5 && ac != 6)
+	{
+		printf("Error w/ arg num\n");
+		return (1);
+	}
+	if (pars(av))
+	{
+		printf("Args incorrect\n");
+		return (1);
+	}
+	
 	return (0);
-}
-
-void	*ft_test(void *add)
-{
-	long	*i;
-
-	i = (long *)add;
-	printf("Add: %ld\n", *i);
-	sleep(3);
-	printf("Thread finished\n");
-	return (NULL);
 }

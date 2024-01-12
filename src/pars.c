@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   pars.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 15:46:32 by davda-si          #+#    #+#             */
-/*   Updated: 2023/05/02 15:53:33 by davda-si         ###   ########.fr       */
+/*   Created: 2024/01/12 18:31:44 by david             #+#    #+#             */
+/*   Updated: 2024/01/12 19:42:34 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../philo.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	pars(char **av)
 {
-	write(fd, &c, 1);
+	int	i;
+
+	i = 1;
+	while (av[i])
+	{
+		if (ft_invalid(av[i]))
+			return (1);
+		if (ft_atol(av[i]) <= 0 || ft_atol(av[i]) > INT_MAX)
+			return (1);
+		i++;
+	}
+	return (0);
 }
