@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/15 17:17:27 by david            ###   ########.fr       */
+/*   Updated: 2024/01/15 20:27:42 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct	s_table
 {
-	
+	int		i;
 }			t_table;
 
 int		main(int ac, char **av);
