@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/12 19:37:57 by david            ###   ########.fr       */
+/*   Updated: 2024/01/15 17:17:27 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <sys/time.h>
+
+typedef struct	s_table
+{
+	
+}			t_table;
 
 int		main(int ac, char **av);
 long	ft_atol(const char *s);
