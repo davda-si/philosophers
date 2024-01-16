@@ -6,9 +6,11 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:47:48 by david             #+#    #+#             */
-/*   Updated: 2024/01/12 19:42:09 by david            ###   ########.fr       */
+/*   Updated: 2024/01/16 19:53:55 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../philo.h"
 
 long	ft_atol(const char *s)
 {
@@ -53,4 +55,12 @@ int	ft_invalid(char *str)
 		i++;
 	}
 	return (0);
+}
+
+unsigned int	timer(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }

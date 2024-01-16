@@ -6,11 +6,23 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:31:44 by david             #+#    #+#             */
-/*   Updated: 2024/01/12 19:42:34 by david            ###   ########.fr       */
+/*   Updated: 2024/01/16 19:08:27 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	ft_save_args(t_table *ph, char **av)
+{
+	ph->philo = ft_atol(av[1]);
+	ph->tm_die = ft_atol(av[2]);
+	ph->tm_eat = ft_atol(av[3]);
+	ph->tm_sleep = ft_atol(av[4]);
+	if (av[5])
+		ph->meals = ft_atol(av[5]);
+	else
+		ph->meals = INT_MAX;
+}
 
 int	pars(char **av)
 {

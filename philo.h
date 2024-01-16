@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/15 20:27:42 by david            ###   ########.fr       */
+/*   Updated: 2024/01/16 20:00:26 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,32 @@
 # include <limits.h>
 # include <sys/time.h>
 
+typedef struct s_philo	t_philo;
+typedef struct s_table	t_table;
+
+typedef struct s_philo
+{
+	t_table	*plate;
+}				t_philo;
+
+
 typedef struct	s_table
 {
-	int		i;
+	int				philo;
+	int				tm_die;
+	int				tm_eat;
+	int				tm_sleep;
+	int				meals;
+	unsigned int	time;
+	pthread_mutex_t	lock;
+	t_philo			marx;
 }			t_table;
 
-int		main(int ac, char **av);
-long	ft_atol(const char *s);
-int		ft_invalid(char *str);
-int		pars(char **av);
+int				main(int ac, char **av);
+long			ft_atol(const char *s);
+int				ft_invalid(char *str);
+int				pars(char **av);
+void			ft_save_args(t_table *ph, char **av);
+unsigned int	timer(void);
 
 #endif

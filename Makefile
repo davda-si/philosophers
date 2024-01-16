@@ -6,7 +6,7 @@
 #    By: david <david@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 19:49:44 by david             #+#    #+#              #
-#    Updated: 2024/01/12 19:26:08 by david            ###   ########.fr        #
+#    Updated: 2024/01/16 20:02:39 by david            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ all: $(NAME)
 	@echo "*-----------------*"
 	@echo "|Compilation done!|"
 	@echo "*-----------------*"
+
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
@@ -39,6 +40,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 #	@make -s -C $(LIBFT_PATH)
 
 clean:
+	@echo "*--------------*"
+	@echo "|Cleaning done!|"
+	@echo "*--------------*"
 	@rm -rf $(OBJS) $(NAME)
 #	@make -s -C $(LIBFT_PATH) clean
 	
