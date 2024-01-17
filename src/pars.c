@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:31:44 by david             #+#    #+#             */
-/*   Updated: 2024/01/16 19:08:27 by david            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:30:30 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_save_args(t_table *ph, char **av)
 {
+	ph->time = timer();
 	ph->philo = ft_atol(av[1]);
 	ph->tm_die = ft_atol(av[2]);
 	ph->tm_eat = ft_atol(av[3]);
@@ -21,7 +22,7 @@ void	ft_save_args(t_table *ph, char **av)
 	if (av[5])
 		ph->meals = ft_atol(av[5]);
 	else
-		ph->meals = INT_MAX;
+		ph->meals = -1;
 }
 
 int	pars(char **av)

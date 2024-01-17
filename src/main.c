@@ -6,15 +6,31 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/01/16 20:01:26 by david            ###   ########.fr       */
+/*   Updated: 2024/01/17 20:17:18 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
+static void	ft_philo(t_table *ph)
+{
+	int	i;
+
+	i = 0;
+	while (i < ph->philo)
+	{
+		ph->marx->dex = i;
+		i++;
+	}
+}
+/* 
+static void	ft_start_thd(t_table *ph)
+{
+} */
+
 int	main(int ac, char **av)
 {
-	t_table	ph;
+	t_table	*ph;
 
 	if (ac != 5 && ac != 6)
 	{
@@ -27,12 +43,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	ft_save_args(&ph, av);
-	printf("%d\n%d\n%d\n%d\n%d\n", ph.philo, ph.tm_die, ph.tm_eat, ph.tm_sleep, ph.meals);
-	ph.time = timer();
-	if (ph.philo == 1)
-	{
-		usleep(ph.tm_die);
-		printf("dead\n");
-	}
+	printf("%d\n%d\n%d\n%d\n%d\n", ph->philo, ph->tm_die, ph->tm_eat, ph->tm_sleep, ph->meals);
+	ft_philo(&ph);
+	/* ft_start_thd(&ph); */
 	return (0);
 }
