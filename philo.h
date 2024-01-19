@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/17 20:31:08 by david            ###   ########.fr       */
+/*   Updated: 2024/01/18 19:23:00 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <time.h>
 # include <sys/time.h>
 
 typedef struct s_philo	t_philo;
@@ -24,18 +25,20 @@ typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
-	int		dex;
-	int		last_meal;
-	int		ate;
-	int		life;
-	int		dead;
-	pthread_mutex_t	forks;
-	t_table	*plate;
+	pthread_t		th;
+	int				dex;
+	int				last_meal;
+	int				ate;
+	int				life;
+	int				dead;
+	pthread_mutex_t	*lfork;
+	pthread_mutex_t	*rfork;
+	t_table			*plate;
 }				t_philo;
-
 
 typedef struct	s_table
 {
+	pthread_t		*id;
 	int				philo;
 	int				tm_die;
 	int				tm_eat;
