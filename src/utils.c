@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:47:48 by david             #+#    #+#             */
-/*   Updated: 2024/01/16 19:53:55 by david            ###   ########.fr       */
+/*   Updated: 2024/01/22 16:16:18 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ int	ft_invalid(char *str)
 	return (0);
 }
 
-unsigned int	timer(void)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	struct timeval	tv;
+	size_t	*i;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	i = malloc(nmemb * size);
+	if (!i)
+		return (NULL);
+	memset((void *)i, 0, nmemb * size);
+	return (i);
 }

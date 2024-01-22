@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/18 19:23:00 by david            ###   ########.fr       */
+/*   Updated: 2024/01/22 16:34:55 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ typedef struct	s_table
 	int				tm_sleep;
 	int				meals;
 	unsigned int	time;
-	pthread_mutex_t	lock;
+	int				end;
+	pthread_mutex_t	*forks;
 	t_philo			*marx;
 }			t_table;
 
@@ -55,5 +56,6 @@ int				ft_invalid(char *str);
 int				pars(char **av);
 void			ft_save_args(t_table *ph, char **av);
 unsigned int	timer(void);
+void			*ft_calloc(size_t nmemb, size_t size);
 
 #endif
