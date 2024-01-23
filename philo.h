@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/22 16:34:55 by david            ###   ########.fr       */
+/*   Updated: 2024/01/23 19:26:52 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <limits.h>
 # include <time.h>
 # include <sys/time.h>
@@ -25,12 +26,10 @@ typedef struct s_table	t_table;
 
 typedef struct s_philo
 {
-	pthread_t		th;
 	int				dex;
 	int				last_meal;
 	int				ate;
-	int				life;
-	int				dead;
+	int				starve;
 	pthread_mutex_t	*lfork;
 	pthread_mutex_t	*rfork;
 	t_table			*plate;
@@ -38,14 +37,14 @@ typedef struct s_philo
 
 typedef struct	s_table
 {
-	pthread_t		*id;
+	pthread_t		*th;
 	int				philo;
 	int				tm_die;
 	int				tm_eat;
 	int				tm_sleep;
 	int				meals;
 	unsigned int	time;
-	int				end;
+	int				dead;
 	pthread_mutex_t	*forks;
 	t_philo			*marx;
 }			t_table;
@@ -57,5 +56,7 @@ int				pars(char **av);
 void			ft_save_args(t_table *ph, char **av);
 unsigned int	timer(void);
 void			*ft_calloc(size_t nmemb, size_t size);
+int				ft_mut(t_table *ph);
+void			*ft_life(void *arg);
 
 #endif

@@ -6,56 +6,22 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/01/22 17:01:17 by david            ###   ########.fr       */
+/*   Updated: 2024/01/23 18:37:16 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	ft_philo(t_table *ph)
-{
-	int	i;
-
-	i = 0;
-	ph->end = 0;
-	ph->marx = ft_calloc(sizeof(t_table), ph->philo);
-	while (i < ph->philo)
-	{
-		ph->marx[i].dex = i + 1;
-		ph->marx[i].ate = 0;
-		ph->marx[i].life = 0;
-		ph->marx[i].dead = 0;
-		i++;
-	}
-}
-
 static int	ft_start(t_table *ph)
 {
-	if (ft_mut(ph) && ft_philo(ph) && ft_start_thd(ph))
+	if (ft_mut(ph))
 	{
-		if ()
+		free(ph->forks);
+		return (1);
 	}
-}
-
-static void	ft_start_thd(t_table ph)
-{
-	int	i;
-
-	i = 0;
-	while (i < ph->philo)
-	{
-		if (pthread_create(&ph->id[i], NULL, &ft_life, &ph->marx[i]));
-			return (NULL);
-		i++;
-		usleep(2 * 1000);
-	}
-	i = 0;
-	while (i < ph->philo)
-	{
-		if (pthread_join(ph->id[i], NULL))
-			return (NULL);
-		i++;
-	}
+	if (ft_pht(ph))
+		return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -77,7 +43,10 @@ int	main(int ac, char **av)
 		free(ph);
 		return (1);
 	}
-	ft_save_args(&ph, av);
-	ft_start(ph);
+	ft_save_args(ph, av);
+	if (ft_start(ph))
+		return (1);
+	free(ph->forks);
+	free(ph);
 	return (0);
 }

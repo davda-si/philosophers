@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:47:48 by david             #+#    #+#             */
-/*   Updated: 2024/01/22 16:16:18 by david            ###   ########.fr       */
+/*   Updated: 2024/01/23 15:23:57 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,18 @@ int	ft_invalid(char *str)
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	*i;
+	void	*i;
+	size_t	s;
 
-	i = malloc(nmemb * size);
+	if (nmemb == 0 || size == 0)
+	{
+		nmemb++;
+		size++;
+	}
+	s = nmemb * size;
+	i = malloc(s);
 	if (!i)
 		return (NULL);
-	memset((void *)i, 0, nmemb * size);
+	memset(i, 0, s);
 	return (i);
 }

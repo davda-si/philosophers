@@ -6,14 +6,14 @@
 #    By: david <david@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 19:49:44 by david             #+#    #+#              #
-#    Updated: 2024/01/22 17:01:50 by david            ###   ########.fr        #
+#    Updated: 2024/01/23 19:25:39 by david            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRC_DIR = src
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/pars.c $(SRC_DIR)/utils.c $(SRC_DIR)/create_mt.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/pars.c $(SRC_DIR)/utils.c $(SRC_DIR)/create_mt.c $(SRC_DIR)/life.c
 
 CC = @cc
 CFLAGS = -Wall -Wextra -Werror -g -pthread
