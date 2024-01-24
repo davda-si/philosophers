@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:17:33 by david             #+#    #+#             */
-/*   Updated: 2024/01/23 19:27:13 by david            ###   ########.fr       */
+/*   Updated: 2024/01/24 16:43:51 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	*ft_life(void *arg)
 
 	marx = (t_philo *)arg;
 	ph = marx->plate;
-	//start philo routine
+	
 }
