@@ -6,12 +6,11 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:31:44 by david             #+#    #+#             */
-/*   Updated: 2024/01/22 16:06:48 by david            ###   ########.fr       */
+/*   Updated: 2024/01/25 17:39:01 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
 
 unsigned int	timer(void)
 {
@@ -24,6 +23,8 @@ unsigned int	timer(void)
 void	ft_save_args(t_table *ph, char **av)
 {
 	ph->time = timer();
+	ph->marx->check_l = 0;
+	ph->marx->check_r = 0;
 	ph->philo = ft_atol(av[1]);
 	ph->tm_die = ft_atol(av[2]) * 1000;
 	ph->tm_eat = ft_atol(av[3]) * 1000;
