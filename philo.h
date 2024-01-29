@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/25 17:28:06 by david            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:50:00 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ typedef struct s_philo
 	int				dex;
 	int				last_meal;
 	int				ate;
-	int				starve;
+	int				time_meal;
 	int				check_l;
 	int				check_r;
-	int				dead;
 	pthread_mutex_t	eatin;
 	pthread_mutex_t	shleep;
 	pthread_mutex_t	writing;
@@ -43,6 +42,7 @@ typedef struct	s_table
 {
 	pthread_t		*th;
 	pthread_t		gr;
+	int				dead;
 	int				philo;
 	int				tm_die;
 	int				tm_eat;
@@ -63,5 +63,6 @@ void			*ft_calloc(size_t nmemb, size_t size);
 int				ft_mut(t_table *ph);
 void			*ft_life(void *arg);
 void			*grim(void *arg);
+void			print_st(t_philo *marx, int philo_nb, char *flag);
 
 #endif

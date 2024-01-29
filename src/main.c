@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/01/25 17:39:49 by david            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:52:32 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_start(t_table *ph)
 		free(ph->forks);
 		return (1);
 	}
-	if (ft_pht(ph))
+	if (ft_mut(ph))
 		return (1);
 	return (0);
 }

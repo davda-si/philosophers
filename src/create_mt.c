@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:48:58 by david             #+#    #+#             */
-/*   Updated: 2024/01/25 17:08:20 by david            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:54:07 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ static int	lf_fork(t_table *ph)
 
 int	ft_mut(t_table *ph)
 {
-	int	i;
-
-	i = -1;
 	ph->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * ph->philo);
 	if (!ph->forks)
 		return (1);
@@ -62,7 +59,6 @@ static int	ft_philo(t_table *ph)
 	{
 		ph->marx[i].dex = i + 1;
 		ph->marx[i].ate = 0;
-		ph->marx[i].dead = 0;
 		i++;
 	}
 	return (0);
@@ -75,7 +71,7 @@ static int	ft_start_thd(t_table *ph)
 	i = 0;
 	while (i < ph->philo)
 	{
-		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]));
+		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]))
 			return (1);
 		i++;
 	}
@@ -109,4 +105,5 @@ int	ft_pht(t_table *ph)
 		printf("Thread Error\n");
 		return (1);
 	}
+	return (0);
 }

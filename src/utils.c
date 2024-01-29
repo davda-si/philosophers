@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:47:48 by david             #+#    #+#             */
-/*   Updated: 2024/01/23 15:23:57 by david            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:52:52 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,11 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		return (NULL);
 	memset(i, 0, s);
 	return (i);
+}
+
+void	print_st(t_philo *marx, int philo_nb, char *flag)
+{
+	pthread_mutex_lock(&(marx->writing));
+	printf("%d %d is %s\n", timer(), philo_nb, flag);
+	pthread_mutex_unlock(&(marx->writing));
 }
