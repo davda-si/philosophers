@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:25:11 by david             #+#    #+#             */
-/*   Updated: 2024/01/29 21:08:36 by david            ###   ########.fr       */
+/*   Updated: 2024/01/31 18:52:48 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*grim(void *arg)
 			if (philo_ate(ph, &(ph->marx[i])))
 			{
 				print_st(marx, i, "dead");
-				return (1);
+				return (NULL);
 			}
 		i++;
 		}

@@ -6,11 +6,30 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/01/29 18:52:32 by david            ###   ########.fr       */
+/*   Updated: 2024/01/31 18:49:28 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+static void	ft_clean(t_table *ph)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(&(ph->marx->eatin));
+	pthread_mutex_destroy(&(ph->marx->shleep));
+	pthread_mutex_destroy(&(ph->marx->writing));
+	while (i < ph->philo)
+	{
+		pthread_mutex_destroy(&(ph->forks[i]));
+		i++;
+	}
+	free(ph->marx);
+	free(ph->forks);
+	free(ph->th);
+	free(ph);
+}
 
 static int	ft_start(t_table *ph)
 {
@@ -19,8 +38,9 @@ static int	ft_start(t_table *ph)
 		free(ph->forks);
 		return (1);
 	}
-	if (ft_mut(ph))
+	if (ft_pht(ph))
 		return (1);
+	ft_clean(ph);
 	return (0);
 }
 
@@ -46,7 +66,5 @@ int	main(int ac, char **av)
 	ft_save_args(ph, av);
 	if (ft_start(ph))
 		return (1);
-	free(ph->forks);
-	free(ph);
 	return (0);
 }

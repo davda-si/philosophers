@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:48:58 by david             #+#    #+#             */
-/*   Updated: 2024/01/29 18:54:07 by david            ###   ########.fr       */
+/*   Updated: 2024/01/31 19:12:31 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ static int	ft_start_thd(t_table *ph)
 	i = 0;
 	while (i < ph->philo)
 	{
-		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]))
+		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]) == 0)
 			return (1);
 		i++;
 	}
-	pthread_create(&ph->gr, NULL, &grim, &ph->marx);
+	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx) == 0)
+		return (1);
 	i = 0;
 	while (i < ph->philo)
 	{
