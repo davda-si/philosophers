@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:48:58 by david             #+#    #+#             */
-/*   Updated: 2024/01/31 19:12:31 by david            ###   ########.fr       */
+/*   Updated: 2024/02/02 15:44:41 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@ int	ft_mut(t_table *ph)
 		return (1);
 	if (lf_fork(ph))
 		return (1);
-	if (pthread_mutex_init(&(ph->marx->eatin), NULL))
-	{
-		printf("Error initializing mutexes\n");
-		return (1);
-	}
-	if (pthread_mutex_init(&(ph->marx->shleep), NULL))
-	{
-		printf("Error initializing mutexes\n");
-		return (1);
-	}
 	return (0);
 }
 
@@ -53,12 +43,23 @@ static int	ft_philo(t_table *ph)
 	int	i;
 
 	i = 0;
-	if (!(ph->marx = ft_calloc(sizeof(t_table), ph->philo)))
+	if (!(ph->marx = ft_calloc(sizeof(t_philo), ph->philo)))
 		return (1);
 	while (i < ph->philo)
 	{
+		ph->marx[i].plate = ph;
 		ph->marx[i].dex = i + 1;
 		ph->marx[i].ate = 0;
+		if (pthread_mutex_init(&(ph->marx[i].eatin), NULL))
+		{
+			printf("Error initializing mutexes\n");
+			return (1);
+		}
+		if (pthread_mutex_init(&(ph->marx[i].shleep), NULL))
+		{
+			printf("Error initializing mutexes\n");
+			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -71,11 +72,11 @@ static int	ft_start_thd(t_table *ph)
 	i = 0;
 	while (i < ph->philo)
 	{
-		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]) == 0)
+		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]))
 			return (1);
 		i++;
 	}
-	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx) == 0)
+	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx))
 		return (1);
 	i = 0;
 	while (i < ph->philo)

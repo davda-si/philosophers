@@ -6,18 +6,39 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:17:33 by david             #+#    #+#             */
-/*   Updated: 2024/01/31 18:51:43 by david            ###   ########.fr       */
+/*   Updated: 2024/02/02 16:35:17 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+static int	check_life(t_table *ph)
+{
+	pthread_mutex_lock(&(ph->marx->shleep));
+	if (ph->dead)
+		return (1);
+	pthread_mutex_unlock(&(ph->marx->shleep));
+	return (0);
+}
 
 static int	lock_forks(t_table *ph, int num, int flag)
 {
 	if (flag == 0)
 	{
 		pthread_mutex_lock(&(ph->forks[num + 1]));
+		if (check_life(ph))
+		{
+			pthread_mutex_unlock(&(ph->forks[num + 1]));
+			return (0);
+		}
+		print_st(ph->marx, ph->marx->dex, "has taken a fork");
 		pthread_mutex_lock(&(ph->forks[num]));
+		if (check_life(ph))
+		{
+			pthread_mutex_unlock(&(ph->forks[num]));
+			return (0);
+		}
+		print_st(ph->marx, ph->marx->dex, "has taken a fork");
 	}
 	else
 	{
@@ -33,13 +54,18 @@ static void	eat(t_table *ph)
 	{
 		pthread_mutex_lock(&(ph->marx->eatin));
 		ph->marx->ate++;
+		print_st(ph->marx, ph->marx->dex, "eating");
 		ph->marx->time_meal = timer() + ph->tm_die;
-		print_st(ph->marx, ph->marx->dex, "has taken a fork");
 		pthread_mutex_unlock(&(ph->marx->eatin));
 		lock_forks(ph, ph->marx->dex, 1);
 	}
+	else
+	{
+		
+	}
 	return ;
 }
+
 
 void	*ft_life(void *arg)
 {
@@ -53,18 +79,17 @@ void	*ft_life(void *arg)
 	pthread_mutex_unlock(&marx->shleep);
 	while (1)
 	{
-		if (ph->dead)
+		if (check_life(ph))
 			return (NULL);
 		eat(ph);
-		if (ph->dead)
+		if (check_life(ph))
 			return (NULL);
 		print_st(marx, marx->dex, "sleeping");
 		usleep(ph->tm_sleep);
-		if (ph->dead)
+		if (check_life(ph))
 			return (NULL);
 		print_st(marx, marx->dex, "thinking");
-		if (ph->dead)
+		if (check_life(ph))
 			return (NULL);
-		
 	}
 }
