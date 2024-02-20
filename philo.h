@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/01/31 19:00:57 by david            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:12:27 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_table
 	int				dead;
 	int				philo;
 	int				tm_die;
-	int				tm_eat;
+	unsigned int	tm_eat;
 	int				tm_sleep;
 	int				meals;
 	unsigned int	time;

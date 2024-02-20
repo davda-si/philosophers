@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:25:11 by david             #+#    #+#             */
-/*   Updated: 2024/02/02 16:18:13 by david            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:11:34 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	philo_ate(t_table *ph, t_philo *marx)
 	pthread_mutex_lock(&(marx->eatin));
 	if (marx->ate >= ph->meals)
 		marx->last_meal = 1;
-	if (timer() >= marx->time_meal)
+	if ((timer() - marx->time_meal) >= ph->tm_eat)
 		ph->dead = 1;
 	pthread_mutex_unlock(&(marx->eatin));
 	return (ph->dead);

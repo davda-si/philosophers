@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 18:31:44 by david             #+#    #+#             */
-/*   Updated: 2024/01/31 19:00:44 by david            ###   ########.fr       */
+/*   Updated: 2024/02/20 16:06:50 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_save_args(t_table *ph, char **av)
 	if (av[5])
 		ph->meals = ft_atol(av[5]);
 	else
-		ph->meals = -1;
+		ph->meals = INT_MAX;
 }
 
 int	pars(char **av)
