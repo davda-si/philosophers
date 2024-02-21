@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 17:25:11 by david             #+#    #+#             */
-/*   Updated: 2024/02/20 16:11:34 by david            ###   ########.fr       */
+/*   Created: 2024/02/21 19:32:52 by david             #+#    #+#             */
+/*   Updated: 2024/02/21 19:32:54 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static int	philo_ate(t_table *ph, t_philo *marx)
 	pthread_mutex_lock(&(marx->eatin));
 	if (marx->ate >= ph->meals)
 		marx->last_meal = 1;
-	if ((timer() - marx->time_meal) >= ph->tm_eat)
+	if ((timer() - marx->time_meal) >= ph->tm_die)
+	{
+		printf("philo num[%d] %u - %u (= %d) >= %u\n", marx->dex + 1, timer(), marx->time_meal, timer() - marx->time_meal, ph->tm_die);
 		ph->dead = 1;
+	}
 	pthread_mutex_unlock(&(marx->eatin));
 	return (ph->dead);
 }
@@ -38,7 +41,7 @@ void	*grim(void *arg)
 		{
 			if (philo_ate(ph, &(ph->marx[i])))
 			{
-				print_st(marx, i, "dead");
+				print_st(marx, i, "is dead");
 				return (NULL);
 			}
 		usleep(100);

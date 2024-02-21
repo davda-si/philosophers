@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 16:48:58 by david             #+#    #+#             */
-/*   Updated: 2024/02/20 16:23:15 by david            ###   ########.fr       */
+/*   Created: 2024/02/21 19:32:32 by david             #+#    #+#             */
+/*   Updated: 2024/02/21 19:32:36 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ft_philo(t_table *ph)
 	while (i < ph->philo)
 	{
 		ph->marx[i].plate = ph;
-		ph->marx[i].dex = i + 1;
+		ph->marx[i].dex = i;
 		ph->marx[i].ate = 0;
 		if (pthread_mutex_init(&(ph->marx[i].eatin), NULL))
 		{
@@ -76,7 +76,7 @@ static int	ft_start_thd(t_table *ph)
 			return (1);
 		i++;
 	}
-	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx))
+	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx[0]))
 		return (1);
 	i = 0;
 	while (i < ph->philo)

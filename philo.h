@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 19:47:20 by david             #+#    #+#             */
-/*   Updated: 2024/02/20 16:12:27 by david            ###   ########.fr       */
+/*   Created: 2024/02/21 19:34:17 by david             #+#    #+#             */
+/*   Updated: 2024/02/21 19:34:19 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_table
 	pthread_t		gr;
 	int				dead;
 	int				philo;
-	int				tm_die;
+	unsigned int	tm_die;
 	unsigned int	tm_eat;
 	int				tm_sleep;
 	int				meals;

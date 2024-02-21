@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 18:31:44 by david             #+#    #+#             */
-/*   Updated: 2024/02/20 16:06:50 by david            ###   ########.fr       */
+/*   Created: 2024/02/21 19:33:27 by david             #+#    #+#             */
+/*   Updated: 2024/02/21 19:33:36 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	ft_save_args(t_table *ph, char **av)
 	ph->time = timer();
 	ph->dead = 0;
 	ph->philo = ft_atol(av[1]);
-	ph->tm_die = ft_atol(av[2]) * 1000;
-	ph->tm_eat = ft_atol(av[3]) * 1000;
-	ph->tm_sleep = ft_atol(av[4]) * 1000;
+	ph->tm_die = ft_atol(av[2]);
+	ph->tm_eat = ft_atol(av[3]);
+	ph->tm_sleep = ft_atol(av[4]);
 	if (av[5])
 		ph->meals = ft_atol(av[5]);
 	else

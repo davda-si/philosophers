@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 18:47:48 by david             #+#    #+#             */
-/*   Updated: 2024/02/20 15:54:56 by david            ###   ########.fr       */
+/*   Created: 2024/02/21 19:33:57 by david             #+#    #+#             */
+/*   Updated: 2024/02/21 19:33:59 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 void	print_st(t_philo *marx, int philo_nb, char *flag)
 {
 	pthread_mutex_lock(&(marx->writing));
-	printf("%d %d is %s\n", (timer() - marx->plate->time), philo_nb, flag);
+	printf("%d %d %s\n", (timer() - marx->plate->time), philo_nb + 1, flag);
 	pthread_mutex_unlock(&(marx->writing));
 }
