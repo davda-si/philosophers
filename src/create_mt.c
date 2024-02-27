@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:32 by david             #+#    #+#             */
-/*   Updated: 2024/02/21 19:32:36 by david            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:53:20 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ static int	lf_fork(t_table *ph)
 {
 	int	i;
 
-	i = -1;
-	while (++i < ph->philo)
+	i = 0;
+	while (i < ph->philo)
 	{
 		if (pthread_mutex_init(&(ph->forks[i]), NULL))
 		{
 			printf("Error initializing mutexes\n");
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
@@ -79,12 +80,8 @@ static int	ft_start_thd(t_table *ph)
 	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx[0]))
 		return (1);
 	i = 0;
-	while (i < ph->philo)
-	{
-		if (pthread_join(ph->th[i], NULL))
-			return (1);
+	while (pthread_join(ph->th[i], NULL))
 		i++;
-	}
 	pthread_join(ph->gr, NULL);
 	return (0);
 }

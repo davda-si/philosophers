@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/02/21 19:33:03 by david            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:15:12 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ static void	eat(t_table *ph, t_philo *test)
 		lock_forks(ph, test->dex, 1);
 	}
 	else
-	{
-		
-	}
+		printf("Error locking forks\n");
 	return ;
 }
 

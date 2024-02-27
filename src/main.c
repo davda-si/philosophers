@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/01/31 18:49:28 by david            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:58:27 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static int	ft_start(t_table *ph)
 		return (1);
 	}
 	if (ft_pht(ph))
+	{
+		ft_clean(ph);
 		return (1);
+	}
 	ft_clean(ph);
 	return (0);
 }
