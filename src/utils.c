@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:33:57 by david             #+#    #+#             */
-/*   Updated: 2024/02/21 19:33:59 by david            ###   ########.fr       */
+/*   Updated: 2024/02/28 12:25:51 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,24 @@ int	ft_invalid(char *str)
 	return (0);
 }
 
+static void	ft_bzero(void *p, size_t s)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = (char *)p;
+	while (s > 0)
+	{
+		str[i] = '\0';
+		s--;
+		i++;
+	}
+}
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*i;
+	void	*p;
 	size_t	s;
 
 	if (nmemb == 0 || size == 0)
@@ -68,16 +83,9 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		size++;
 	}
 	s = nmemb * size;
-	i = malloc(s);
-	if (!i)
+	p = malloc(s);
+	if (!p)
 		return (NULL);
-	memset(i, 0, s);
-	return (i);
-}
-
-void	print_st(t_philo *marx, int philo_nb, char *flag)
-{
-	pthread_mutex_lock(&(marx->writing));
-	printf("%d %d %s\n", (timer() - marx->plate->time), philo_nb + 1, flag);
-	pthread_mutex_unlock(&(marx->writing));
+	ft_bzero(p, s);
+	return (p);
 }

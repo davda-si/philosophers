@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:32 by david             #+#    #+#             */
-/*   Updated: 2024/02/27 20:53:20 by david            ###   ########.fr       */
+/*   Updated: 2024/02/28 17:48:53 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static int	ft_philo(t_table *ph)
 			printf("Error initializing mutexes\n");
 			return (1);
 		}
+		if (pthread_mutex_init(&(ph->marx[i].writing), NULL))
+			return (1);
 		i++;
 	}
 	return (0);
@@ -77,11 +79,14 @@ static int	ft_start_thd(t_table *ph)
 			return (1);
 		i++;
 	}
-	if (pthread_create(&ph->gr, NULL, &grim, &ph->marx[0]))
+	if (pthread_create(&ph->gr, NULL, &grim, ph->marx))
 		return (1);
 	i = 0;
-	while (pthread_join(ph->th[i], NULL))
+	while (i < ph->philo)
+	{
+		pthread_join(ph->th[i], NULL);
 		i++;
+	}
 	pthread_join(ph->gr, NULL);
 	return (0);
 }

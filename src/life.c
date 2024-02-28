@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/02/27 20:15:12 by david            ###   ########.fr       */
+/*   Updated: 2024/02/28 17:38:24 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static int	check_life(t_table *ph)
 {
 	pthread_mutex_lock(&(ph->marx->shleep));
 	if (ph->dead)
+	{
+		pthread_mutex_unlock(&(ph->marx->shleep));
 		return (1);
+	}
 	pthread_mutex_unlock(&(ph->marx->shleep));
 	return (0);
 }
@@ -48,6 +51,7 @@ static int	lock_forks(t_table *ph, int num, int flag)
 		if (check_life(ph))
 		{
 			pthread_mutex_unlock(&(ph->forks[num]));
+			pthread_mutex_unlock(&(ph->forks[num + 1]));
 			return (0);
 		}
 		print_st(ph->marx, num, "has taken a fork");
@@ -63,7 +67,7 @@ static int	lock_forks(t_table *ph, int num, int flag)
 	return (1);
 }
 
-static void	eat(t_table *ph, t_philo *test)
+static int	eat(t_table *ph, t_philo *test)
 {
 	if (lock_forks(ph, test->dex, 0))
 	{
@@ -76,8 +80,11 @@ static void	eat(t_table *ph, t_philo *test)
 		lock_forks(ph, test->dex, 1);
 	}
 	else
-		printf("Error locking forks\n");
-	return ;
+	{
+		print_st(ph->marx, test->dex, "couldn't find a fork");
+		return (1);
+	}
+	return (0);
 }
 
 
@@ -96,16 +103,32 @@ void	*ft_life(void *arg)
 	while (1)
 	{
 		if (check_life(ph))
+		{
+			print_st(marx, marx->dex, "left before eating");
 			return (NULL);
-		eat(ph, marx);
+		}
+		if (eat(ph, marx))
+		{
+			print_st(marx, marx->dex, "left while eating");
+			return (NULL);
+		}
 		if (check_life(ph))
+		{
+			print_st(marx, marx->dex, "left after eating");
 			return (NULL);
+		}
 		print_st(marx, marx->dex, "is sleeping");
 		usleep(ph->tm_sleep * 1000);
 		if (check_life(ph))
+		{
+			print_st(marx, marx->dex, "left after sleeping");
 			return (NULL);
+		}
 		print_st(marx, marx->dex, "is thinking");
 		if (check_life(ph))
+		{
+			print_st(marx, marx->dex, "left after thinking");
 			return (NULL);
+		}
 	}
 }
