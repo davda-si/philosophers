@@ -6,7 +6,7 @@
 #    By: david <david@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 19:49:44 by david             #+#    #+#              #
-#    Updated: 2024/02/28 17:18:36 by david            ###   ########.fr        #
+#    Updated: 2024/02/29 18:45:50 by david            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src
 SRC = $(SRC_DIR)/main.c $(SRC_DIR)/pars.c $(SRC_DIR)/utils.c $(SRC_DIR)/create_mt.c $(SRC_DIR)/life.c $(SRC_DIR)/grim_reap.c
 
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
 
 
 #LIBFT_PATH = ./libs/libft

@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:34:17 by david             #+#    #+#             */
-/*   Updated: 2024/02/28 17:37:28 by david            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:19:13 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_table	t_table;
 typedef struct s_philo
 {
 	int				dex;
-	int				last_meal;
 	int				ate;
 	unsigned int	time_meal;
 	pthread_mutex_t	eatin;
@@ -42,6 +41,7 @@ typedef struct	s_table
 	pthread_t		gr;
 	int				dead;
 	int				philo;
+	int				full;
 	unsigned int	tm_die;
 	unsigned int	tm_eat;
 	int				tm_sleep;

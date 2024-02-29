@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/02/28 17:38:24 by david            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:27:23 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static int	check_life(t_table *ph)
 {
 	pthread_mutex_lock(&(ph->marx->shleep));
 	if (ph->dead)
+	{
+		pthread_mutex_unlock(&(ph->marx->shleep));
+		return (1);
+	}
+	if (ph->full == ph->philo)
 	{
 		pthread_mutex_unlock(&(ph->marx->shleep));
 		return (1);
@@ -103,32 +108,17 @@ void	*ft_life(void *arg)
 	while (1)
 	{
 		if (check_life(ph))
-		{
-			print_st(marx, marx->dex, "left before eating");
 			return (NULL);
-		}
 		if (eat(ph, marx))
-		{
-			print_st(marx, marx->dex, "left while eating");
 			return (NULL);
-		}
 		if (check_life(ph))
-		{
-			print_st(marx, marx->dex, "left after eating");
 			return (NULL);
-		}
 		print_st(marx, marx->dex, "is sleeping");
 		usleep(ph->tm_sleep * 1000);
 		if (check_life(ph))
-		{
-			print_st(marx, marx->dex, "left after sleeping");
 			return (NULL);
-		}
 		print_st(marx, marx->dex, "is thinking");
 		if (check_life(ph))
-		{
-			print_st(marx, marx->dex, "left after thinking");
 			return (NULL);
-		}
 	}
 }
