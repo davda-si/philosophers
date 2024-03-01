@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:32 by david             #+#    #+#             */
-/*   Updated: 2024/02/28 17:48:53 by david            ###   ########.fr       */
+/*   Updated: 2024/03/01 15:50:58 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ static int	ft_philo(t_table *ph)
 		ph->marx[i].plate = ph;
 		ph->marx[i].dex = i;
 		ph->marx[i].ate = 0;
-		if (pthread_mutex_init(&(ph->marx[i].eatin), NULL))
-		{
-			printf("Error initializing mutexes\n");
-			return (1);
-		}
-		if (pthread_mutex_init(&(ph->marx[i].shleep), NULL))
-		{
-			printf("Error initializing mutexes\n");
-			return (1);
-		}
-		if (pthread_mutex_init(&(ph->marx[i].writing), NULL))
-			return (1);
 		i++;
 	}
+	if (pthread_mutex_init(&(ph->eatin), NULL))
+	{
+		printf("Error initializing mutexes\n");
+		return (1);
+	}
+	if (pthread_mutex_init(&(ph->shleep), NULL))
+	{
+		printf("Error initializing mutexes\n");
+		return (1);
+	}
+	if (pthread_mutex_init(&(ph->writing), NULL))
+		return (1);
 	return (0);
 }
 
