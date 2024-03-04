@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/01 16:01:47 by david            ###   ########.fr       */
+/*   Updated: 2024/03/04 15:52:41 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	check_life(t_table *ph)
 {
+	if (ph->philo == 1)
+		return (1);
 	pthread_mutex_lock(&(ph->eatin));
 	if (ph->dead)
 	{
@@ -87,16 +89,15 @@ static int	eat(t_table *ph, t_philo *marx)
 		pthread_mutex_lock(&(ph->eatin));
 		marx->time_meal = timer();
 		print_st(ph->marx, marx->dex, "is eating", ph);
+		pthread_mutex_unlock(&(ph->eatin));
 		usleep(ph->tm_eat * 1000);
+		pthread_mutex_lock(&(ph->eatin));
 		marx->ate++;
 		pthread_mutex_unlock(&(ph->eatin));
 		lock_forks(ph, marx->dex, 1);
 	}
 	else
-	{
-		print_st(ph->marx, marx->dex, "couldn't find a fork", ph);
 		return (1);
-	}
 	return (0);
 }
 

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   grim_reap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:52 by david             #+#    #+#             */
-/*   Updated: 2024/03/01 16:55:01 by david            ###   ########.fr       */
+/*   Updated: 2024/03/04 15:25:26 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	ft_usleep(t_table *ph)
+/* void	ft_usleep(t_table *ph)
 {
 	
-}
+} */
 
 void	print_st(t_philo *marx, int philo_nb, char *flag, t_table *ph)
 {
