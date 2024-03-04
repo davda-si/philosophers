@@ -3,38 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   grim_reap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:52 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 15:25:26 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/04 20:45:31 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-/* void	ft_usleep(t_table *ph)
+void	ft_usleep(int time, t_table *ph)
 {
-	
-} */
+	long int	st;
 
-void	print_st(t_philo *marx, int philo_nb, char *flag, t_table *ph)
+	st = timer();
+	while (st - timer() <= time)
+	{
+		
+		usleep(100);
+	}
+}
+
+void	print_st(t_philo *marx, int philo_nb, char *flag)
 {
-	pthread_mutex_lock(&(ph->writing));
+	pthread_mutex_lock(&(marx->writing));
 	printf("%d %d %s\n", (timer() - marx->plate->time), philo_nb + 1, flag);
-	pthread_mutex_unlock(&(ph->writing));
+	pthread_mutex_unlock(&(marx->writing));
 }
 
 static int	philo_ate(t_table *ph, t_philo *marx)
 {
 	int	i;
 
-	pthread_mutex_lock(&(ph->eatin));
+	pthread_mutex_lock(&(ph->locker));
 	if (marx->ate >= ph->meals)
 		ph->full++;
 	if ((timer() - marx->time_meal) >= ph->tm_die)
 		ph->dead = 1;
 	i = ph->dead;
-	pthread_mutex_unlock(&(ph->eatin));
+	pthread_mutex_unlock(&(ph->locker));
 	return (i);
 }
 
@@ -49,14 +56,14 @@ void	*grim(void *arg)
 	while (1)
 	{
 		i = 0;
-		pthread_mutex_lock(&(ph->eatin));
+		pthread_mutex_lock(&(ph->locker));
 		ph->full = 0;
-		pthread_mutex_unlock(&(ph->eatin));
+		pthread_mutex_unlock(&(ph->locker));
 		while (i < ph->philo)
 		{
 			if (philo_ate(ph, &(marx[i])))
 			{
-				print_st(marx, i, "is dead", ph);
+				print_st(marx, i, "is dead");
 				return (NULL);
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:32 by david             #+#    #+#             */
-/*   Updated: 2024/03/01 15:50:58 by david            ###   ########.fr       */
+/*   Updated: 2024/03/04 19:40:09 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,17 @@ static int	ft_philo(t_table *ph)
 		ph->marx[i].plate = ph;
 		ph->marx[i].dex = i;
 		ph->marx[i].ate = 0;
+		if (pthread_mutex_init(&(ph->marx[i].eatin), NULL))
+		{
+			printf("Error initializing mutexes\n");
+			return (1);
+		}
+		if (pthread_mutex_init(&(ph->marx[i].writing), NULL))
+			return (1);
 		i++;
 	}
-	if (pthread_mutex_init(&(ph->eatin), NULL))
-	{
-		printf("Error initializing mutexes\n");
-		return (1);
-	}
-	if (pthread_mutex_init(&(ph->shleep), NULL))
-	{
-		printf("Error initializing mutexes\n");
-		return (1);
-	}
-	if (pthread_mutex_init(&(ph->writing), NULL))
-		return (1);
+	if (pthread_mutex_init(&(ph->locker), NULL))
+			return (1);
 	return (0);
 }
 
@@ -73,8 +70,10 @@ static int	ft_start_thd(t_table *ph)
 	int	i;
 
 	i = 0;
+	ph->time = timer();
 	while (i < ph->philo)
 	{
+		ph->marx[i].time_meal = timer();
 		if (pthread_create(&ph->th[i], NULL, &ft_life, &ph->marx[i]))
 			return (1);
 		i++;

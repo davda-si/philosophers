@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:33:27 by david             #+#    #+#             */
-/*   Updated: 2024/02/28 17:38:49 by david            ###   ########.fr       */
+/*   Updated: 2024/03/04 19:40:01 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ unsigned int	timer(void)
 
 void	ft_save_args(t_table *ph, char **av)
 {
-	ph->time = timer();
 	ph->dead = 0;
 	ph->philo = ft_atol(av[1]);
 	ph->tm_die = ft_atol(av[2]);

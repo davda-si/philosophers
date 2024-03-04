@@ -6,7 +6,7 @@
 /*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/03/01 15:53:40 by david            ###   ########.fr       */
+/*   Updated: 2024/03/04 17:28:51 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ static void	ft_clean(t_table *ph)
 	while (i < ph->philo)
 	{
 		pthread_mutex_destroy(&(ph->forks[i]));
+		pthread_mutex_destroy(&(ph->marx[i].eatin));
+		pthread_mutex_destroy(&(ph->marx[i].writing));
 		i++;
 	}
-	pthread_mutex_destroy(&(ph->eatin));
-	pthread_mutex_destroy(&(ph->shleep));
-	pthread_mutex_destroy(&(ph->writing));
 	free(ph->marx);
 	free(ph->forks);
 	free(ph->th);

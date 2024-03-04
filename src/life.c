@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 15:52:41 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:54:11 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ static int	check_life(t_table *ph)
 {
 	if (ph->philo == 1)
 		return (1);
-	pthread_mutex_lock(&(ph->eatin));
+	pthread_mutex_lock(&(ph->locker));
 	if (ph->dead)
 	{
-		pthread_mutex_unlock(&(ph->eatin));
+		pthread_mutex_unlock(&(ph->locker));
 		return (1);
 	}
 	if (ph->full == ph->philo)
 	{
-		pthread_mutex_unlock(&(ph->eatin));
+		pthread_mutex_unlock(&(ph->locker));
 		return (1);
 	}
-	pthread_mutex_unlock(&(ph->eatin));
+	pthread_mutex_unlock(&(ph->locker));
 	return (0);
 }
 
@@ -38,23 +38,27 @@ static int	lock_forks(t_table *ph, int num, int flag)
 		if (num == ph->philo - 1)
 		{
 			pthread_mutex_lock(&(ph->forks[0]));
+			pthread_mutex_lock(&(ph->forks[num]));
 			if (check_life(ph))
 			{
 				pthread_mutex_unlock(&(ph->forks[0]));
+				pthread_mutex_unlock(&(ph->forks[num]));
 				return (0);
 			}
 		}
 		else 
 		{
+			pthread_mutex_lock(&(ph->forks[num]));
 			pthread_mutex_lock(&(ph->forks[num + 1]));
 			if (check_life(ph))
 			{
+				pthread_mutex_unlock(&(ph->forks[num]));
 				pthread_mutex_unlock(&(ph->forks[num + 1]));
 				return (0);
 			}
 		}
-		print_st(ph->marx, num, "has taken a fork", ph);
-		pthread_mutex_lock(&(ph->forks[num]));
+		print_st(ph->marx, num, "has taken a fork");
+		/* pthread_mutex_lock(&(ph->forks[num]));
 		if (check_life(ph))
 		{
 			pthread_mutex_unlock(&(ph->forks[num]));
@@ -68,8 +72,8 @@ static int	lock_forks(t_table *ph, int num, int flag)
 				pthread_mutex_unlock(&(ph->forks[num + 1]));
 				return (0);
 			}
-		}
-		print_st(ph->marx, num, "has taken a fork", ph);
+		} */
+		print_st(ph->marx, num, "has taken a fork");
 	}
 	else
 	{
@@ -86,14 +90,14 @@ static int	eat(t_table *ph, t_philo *marx)
 {
 	if (lock_forks(ph, marx->dex, 0))
 	{
-		pthread_mutex_lock(&(ph->eatin));
+		pthread_mutex_lock(&(ph->locker));
 		marx->time_meal = timer();
-		print_st(ph->marx, marx->dex, "is eating", ph);
-		pthread_mutex_unlock(&(ph->eatin));
+		print_st(ph->marx, marx->dex, "is eating");
+		pthread_mutex_unlock(&(ph->locker));
 		usleep(ph->tm_eat * 1000);
-		pthread_mutex_lock(&(ph->eatin));
+		pthread_mutex_lock(&(ph->locker));
 		marx->ate++;
-		pthread_mutex_unlock(&(ph->eatin));
+		pthread_mutex_unlock(&(ph->locker));
 		lock_forks(ph, marx->dex, 1);
 	}
 	else
@@ -109,11 +113,9 @@ void	*ft_life(void *arg)
 
 	marx = (t_philo *)arg;
 	ph = marx->plate;
-	pthread_mutex_lock(&ph->eatin);
-	marx->time_meal = timer();
-	pthread_mutex_unlock(&ph->eatin);
+	//marx->time_meal = timer();
 	if (marx->dex % 2 == 1)
-		usleep(1000);
+		ft_usleep(1000, ph);
 	while (1)
 	{
 		if (check_life(ph))
@@ -122,11 +124,11 @@ void	*ft_life(void *arg)
 			return (NULL);
 		if (check_life(ph))
 			return (NULL);
-		print_st(marx, marx->dex, "is sleeping", ph);
-		usleep(ph->tm_sleep * 1000);
+		print_st(marx, marx->dex, "is sleeping");
+		ft_usleep(ph->tm_sleep * 1000, ph);
 		if (check_life(ph))
 			return (NULL);
-		print_st(marx, marx->dex, "is thinking", ph);
+		print_st(marx, marx->dex, "is thinking");
 		if (check_life(ph))
 			return (NULL);
 	}
