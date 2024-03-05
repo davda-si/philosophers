@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:34:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 17:30:19 by david            ###   ########.fr       */
+/*   Updated: 2024/03/05 16:55:55 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ int				ft_pht(t_table *ph);
 void			*ft_life(void *arg);
 void			*grim(void *arg);
 void			print_st(t_philo *marx, int philo_nb, char *flag);
+void			ft_usleep(int time, t_table *ph);
 
 #endif

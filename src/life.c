@@ -6,7 +6,7 @@
 /*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/05 14:40:53 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/05 20:26:47 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static int	check_life(t_table *ph)
 {
 	if (ph->philo == 1)
+	{
+		ft_usleep(ph->tm_die, ph);
 		return (1);
+	}
 	pthread_mutex_lock(&(ph->locker));
 	if (ph->dead)
 	{
@@ -58,21 +61,6 @@ static int	lock_forks(t_table *ph, int num, int flag)
 			}
 		}
 		print_st(ph->marx, num, "has taken a fork");
-		/* pthread_mutex_lock(&(ph->forks[num]));
-		if (check_life(ph))
-		{
-			pthread_mutex_unlock(&(ph->forks[num]));
-			if (num == ph->philo - 1)
-			{
-				pthread_mutex_unlock(&(ph->forks[0]));
-				return (0);
-			}
-			else
-			{
-				pthread_mutex_unlock(&(ph->forks[num + 1]));
-				return (0);
-			}
-		} */
 		print_st(ph->marx, num, "has taken a fork");
 	}
 	else
@@ -94,7 +82,7 @@ static int	eat(t_table *ph, t_philo *marx)
 		marx->time_meal = timer();
 		print_st(ph->marx, marx->dex, "is eating");
 		pthread_mutex_unlock(&(ph->locker));
-		ft_usleep(ph->tm_eat * 1000, ph);
+		ft_usleep(ph->tm_eat, ph);
 		pthread_mutex_lock(&(ph->locker));
 		marx->ate++;
 		pthread_mutex_unlock(&(ph->locker));
@@ -114,7 +102,7 @@ void	*ft_life(void *arg)
 	marx = (t_philo *)arg;
 	ph = marx->plate;
 	if (marx->dex % 2 == 1)
-		usleep(1000);
+		ft_usleep(10, ph);
 	while (1)
 	{
 		if (check_life(ph))
@@ -124,7 +112,7 @@ void	*ft_life(void *arg)
 		if (check_life(ph))
 			return (NULL);
 		print_st(marx, marx->dex, "is sleeping");
-		usleep(ph->tm_sleep * 1000);
+		ft_usleep(ph->tm_sleep, ph);
 		if (check_life(ph))
 			return (NULL);
 		print_st(marx, marx->dex, "is thinking");
