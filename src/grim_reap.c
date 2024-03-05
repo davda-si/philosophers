@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grim_reap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:52 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 20:45:31 by david            ###   ########.fr       */
+/*   Updated: 2024/03/05 14:42:45 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_usleep(int time, t_table *ph)
 	st = timer();
 	while (st - timer() <= time)
 	{
-		
+		if (philo_ate(ph, ph->marx))
+			break ;
 		usleep(100);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   life.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 19:54:11 by david            ###   ########.fr       */
+/*   Updated: 2024/03/05 14:40:53 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	eat(t_table *ph, t_philo *marx)
 		marx->time_meal = timer();
 		print_st(ph->marx, marx->dex, "is eating");
 		pthread_mutex_unlock(&(ph->locker));
-		usleep(ph->tm_eat * 1000);
+		ft_usleep(ph->tm_eat * 1000, ph);
 		pthread_mutex_lock(&(ph->locker));
 		marx->ate++;
 		pthread_mutex_unlock(&(ph->locker));
@@ -113,9 +113,8 @@ void	*ft_life(void *arg)
 
 	marx = (t_philo *)arg;
 	ph = marx->plate;
-	//marx->time_meal = timer();
 	if (marx->dex % 2 == 1)
-		ft_usleep(1000, ph);
+		usleep(1000);
 	while (1)
 	{
 		if (check_life(ph))
@@ -125,7 +124,7 @@ void	*ft_life(void *arg)
 		if (check_life(ph))
 			return (NULL);
 		print_st(marx, marx->dex, "is sleeping");
-		ft_usleep(ph->tm_sleep * 1000, ph);
+		usleep(ph->tm_sleep * 1000);
 		if (check_life(ph))
 			return (NULL);
 		print_st(marx, marx->dex, "is thinking");
