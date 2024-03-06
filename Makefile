@@ -6,17 +6,17 @@
 #    By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/10 19:49:44 by david             #+#    #+#              #
-#    Updated: 2024/03/06 16:32:28 by davda-si         ###   ########.fr        #
+#    Updated: 2024/03/06 20:07:15 by davda-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRC_DIR = src
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/pars.c $(SRC_DIR)/utils.c $(SRC_DIR)/create_mt.c $(SRC_DIR)/life.c $(SRC_DIR)/grim_reap.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/pars.c $(SRC_DIR)/utils.c $(SRC_DIR)/create_mt.c $(SRC_DIR)/life.c $(SRC_DIR)/grim_reap.c $(SRC_DIR)/utils2.c
 
 CC = @cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread
 
 
 #LIBFT_PATH = ./libs/libft

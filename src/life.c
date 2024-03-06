@@ -6,13 +6,13 @@
 /*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/06 15:59:59 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:16:34 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static int	check_life(t_table *ph)
+int	check_life(t_table *ph)
 {
 	if (ph->philo == 1)
 	{
@@ -36,27 +36,15 @@ static int	check_life(t_table *ph)
 
 static int	forking(t_table *ph, int num)
 {
-	if (num == ph->philo - 1)
+	if (ph->philo % 2 == 1)
 	{
-		pthread_mutex_lock(&(ph->forks[0]));
-		pthread_mutex_lock(&(ph->forks[num]));
-		if (check_life(ph))
-		{
-			pthread_mutex_unlock(&(ph->forks[0]));
-			pthread_mutex_unlock(&(ph->forks[num]));
+		if (odd_fork(ph, num))
 			return (0);
-		}
 	}
-	else 
+	else
 	{
-		pthread_mutex_lock(&(ph->forks[num]));
-		pthread_mutex_lock(&(ph->forks[num + 1]));
-		if (check_life(ph))
-		{
-			pthread_mutex_unlock(&(ph->forks[num]));
-			pthread_mutex_unlock(&(ph->forks[num + 1]));
+		if (even_fork(ph, num))
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -110,8 +98,10 @@ void	*ft_life(void *arg)
 
 	marx = (t_philo *)arg;
 	ph = marx->plate;
-	if (marx->dex % 2 == 1)
-		ft_usleep(10, ph);
+	if (marx->dex % 2 == 1 && ph->philo % 2 == 1)
+		ft_usleep(ph->tm_eat * 2 - ph->tm_sleep, ph);
+	else if (marx->dex % 2 == 1)
+		ft_usleep(ph->tm_eat - ph->tm_sleep, ph);
 	while (1)
 	{
 		if (check_life(ph))
@@ -127,5 +117,9 @@ void	*ft_life(void *arg)
 		print_st(marx, marx->dex, "is thinking");
 		if (check_life(ph))
 			return (NULL);
+		if((ph->philo % 2 == 1) && (2 * ph->tm_eat > ph->tm_sleep))
+			ft_usleep(((2 * ph->tm_eat) - ph->tm_sleep), ph);
+		else if((ph->philo % 2 == 0) && ( ph->tm_eat > ph->tm_sleep))
+			ft_usleep((( ph->tm_eat) - ph->tm_sleep), ph);
 	}
 }

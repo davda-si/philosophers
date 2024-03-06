@@ -6,7 +6,7 @@
 /*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:34:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/06 16:21:34 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:47:21 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_table
 	int				full;
 	unsigned int	tm_die;
 	unsigned int	tm_eat;
-	int				tm_sleep;
+	unsigned int	tm_sleep;
 	int				meals;
 	unsigned int	time;
 	pthread_mutex_t	locker;
@@ -64,5 +64,8 @@ void			*ft_life(void *arg);
 void			*grim(void *arg);
 void			print_st(t_philo *marx, int philo_nb, char *flag);
 void			ft_usleep(int time, t_table *ph);
+int				odd_fork(t_table *ph, int num);
+int				even_fork(t_table *ph, int num);
+int				check_life(t_table *ph);
 
 #endif
