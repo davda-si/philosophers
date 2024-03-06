@@ -6,12 +6,11 @@
 /*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:52 by david             #+#    #+#             */
-/*   Updated: 2024/03/05 20:27:08 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:23:19 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
 
 void	print_st(t_philo *marx, int philo_nb, char *flag)
 {
@@ -30,8 +29,10 @@ static int	philo_ate(t_table *ph, t_philo *marx)
 		return (1);
 	}
 	pthread_mutex_lock(&(ph->locker));
-	if (marx->ate == ph->meals)
+	if ((ph->meals > 0) && (marx->ate >= ph->meals))
 		ph->full++;
+	pthread_mutex_unlock(&(ph->locker));
+	pthread_mutex_lock(&(ph->locker));
 	if ((timer() - marx->time_meal) >= ph->tm_die)
 		ph->dead = 1;
 	i = ph->dead;
@@ -42,9 +43,9 @@ static int	philo_ate(t_table *ph, t_philo *marx)
 void	ft_usleep(int time, t_table *ph)
 {
 	long int	st;
-	
+
 	st = timer();
-	while (timer() - st <= time)
+	while (timer() < time + st)
 	{
 		pthread_mutex_lock(&(ph->locker));
 		if (ph->dead)
@@ -57,12 +58,24 @@ void	ft_usleep(int time, t_table *ph)
 	}
 }
 
+static int	check_full(t_table *ph)
+{
+	if (ph->full >= ph->philo)
+	{
+		pthread_mutex_lock(&(ph->locker));
+		ph->dead = 1;
+		pthread_mutex_unlock(&(ph->locker));
+		return (1);
+	}
+	return (0);
+}
+
 void	*grim(void *arg)
 {
 	t_philo		*marx;
 	t_table		*ph;
 	int			i;
-	
+
 	marx = (t_philo *)arg;
 	ph = marx->plate;
 	while (1)
@@ -80,7 +93,7 @@ void	*grim(void *arg)
 			}
 			i++;
 		}
-		if (ph->full == ph->philo)
+		if (check_full(ph))
 			return (NULL);
 	}
 }

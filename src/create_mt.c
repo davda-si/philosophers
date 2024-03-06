@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_mt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:32 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 19:40:09 by david            ###   ########.fr       */
+/*   Updated: 2024/03/06 15:59:15 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	ft_philo(t_table *ph)
 	int	i;
 
 	i = 0;
-	if (!(ph->marx = ft_calloc(sizeof(t_philo), ph->philo)))
+	ph->marx = ft_calloc(sizeof(t_philo), ph->philo);
+	if (!(ph->marx))
 		return (1);
 	while (i < ph->philo)
 	{
@@ -61,7 +62,7 @@ static int	ft_philo(t_table *ph)
 		i++;
 	}
 	if (pthread_mutex_init(&(ph->locker), NULL))
-			return (1);
+		return (1);
 	return (0);
 }
 
@@ -92,7 +93,8 @@ static int	ft_start_thd(t_table *ph)
 
 int	ft_pht(t_table *ph)
 {
-	if (!(ph->th = (pthread_t *)ft_calloc(sizeof(pthread_t), ph->philo)))
+	ph->th = (pthread_t *)ft_calloc(sizeof(pthread_t), ph->philo);
+	if (!(ph->th))
 	{
 		free(ph->th);
 		return (1);

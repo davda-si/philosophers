@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 19:37:06 by david             #+#    #+#             */
-/*   Updated: 2024/03/04 17:28:51 by david            ###   ########.fr       */
+/*   Updated: 2024/03/06 16:00:05 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	ft_clean(t_table *ph)
 		pthread_mutex_destroy(&(ph->marx[i].writing));
 		i++;
 	}
+	pthread_mutex_destroy(&(ph->locker));
 	free(ph->marx);
 	free(ph->forks);
 	free(ph->th);

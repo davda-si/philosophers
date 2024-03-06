@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:33:57 by david             #+#    #+#             */
-/*   Updated: 2024/02/28 12:25:51 by david            ###   ########.fr       */
+/*   Updated: 2024/03/06 13:50:41 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_isdigit(int c)
 int	ft_invalid(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{

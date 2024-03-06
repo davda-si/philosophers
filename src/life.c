@@ -6,7 +6,7 @@
 /*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:32:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/05 20:26:47 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:59:59 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	check_life(t_table *ph)
 		pthread_mutex_unlock(&(ph->locker));
 		return (1);
 	}
-	if (ph->full == ph->philo)
+	if (ph->full >= ph->philo)
 	{
 		pthread_mutex_unlock(&(ph->locker));
 		return (1);
@@ -34,34 +34,44 @@ static int	check_life(t_table *ph)
 	return (0);
 }
 
+static int	forking(t_table *ph, int num)
+{
+	if (num == ph->philo - 1)
+	{
+		pthread_mutex_lock(&(ph->forks[0]));
+		pthread_mutex_lock(&(ph->forks[num]));
+		if (check_life(ph))
+		{
+			pthread_mutex_unlock(&(ph->forks[0]));
+			pthread_mutex_unlock(&(ph->forks[num]));
+			return (0);
+		}
+	}
+	else 
+	{
+		pthread_mutex_lock(&(ph->forks[num]));
+		pthread_mutex_lock(&(ph->forks[num + 1]));
+		if (check_life(ph))
+		{
+			pthread_mutex_unlock(&(ph->forks[num]));
+			pthread_mutex_unlock(&(ph->forks[num + 1]));
+			return (0);
+		}
+	}
+	return (1);
+}
+
 static int	lock_forks(t_table *ph, int num, int flag)
 {
 	if (flag == 0)
 	{
-		if (num == ph->philo - 1)
+		if (forking(ph, num))
 		{
-			pthread_mutex_lock(&(ph->forks[0]));
-			pthread_mutex_lock(&(ph->forks[num]));
-			if (check_life(ph))
-			{
-				pthread_mutex_unlock(&(ph->forks[0]));
-				pthread_mutex_unlock(&(ph->forks[num]));
-				return (0);
-			}
+			print_st(ph->marx, num, "has taken a fork");
+			print_st(ph->marx, num, "has taken a fork");
 		}
-		else 
-		{
-			pthread_mutex_lock(&(ph->forks[num]));
-			pthread_mutex_lock(&(ph->forks[num + 1]));
-			if (check_life(ph))
-			{
-				pthread_mutex_unlock(&(ph->forks[num]));
-				pthread_mutex_unlock(&(ph->forks[num + 1]));
-				return (0);
-			}
-		}
-		print_st(ph->marx, num, "has taken a fork");
-		print_st(ph->marx, num, "has taken a fork");
+		else
+			return (0);
 	}
 	else
 	{
@@ -92,7 +102,6 @@ static int	eat(t_table *ph, t_philo *marx)
 		return (1);
 	return (0);
 }
-
 
 void	*ft_life(void *arg)
 {

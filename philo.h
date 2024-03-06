@@ -6,7 +6,7 @@
 /*   By: davda-si <davda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 19:34:17 by david             #+#    #+#             */
-/*   Updated: 2024/03/05 16:55:55 by davda-si         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:21:34 by davda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_philo
 	t_table			*plate;
 }				t_philo;
 
-typedef struct	s_table
+typedef struct s_table
 {
 	pthread_t		*th;
 	pthread_t		gr;
